@@ -1,4 +1,5 @@
 import random
+import math
 
 
 def play():
@@ -8,14 +9,14 @@ def play():
     computer = random.choice(['r', 'p', 's'])
 
     if player == computer:
-        return "You and the computer have both chosen {}. It's a tie.".format(computer)
+        return (0, player, computer)
     
     # r > s, s > p, p > r
     if is_win(player, computer):
-        return "You have chosen {} and the computer has chosen {}. You won!".format(player, computer)
+        return (1, player, computer)
     
 
-    return "You have chosen {} and the computer has chosen {}. You Lost!".format(player, computer)
+    return (-1, player, computer)
 
 def is_win(player, opponent):
     #return true if the player beats the opponent
@@ -24,9 +25,30 @@ def is_win(player, opponent):
         return True
     return False
 
+def play_best_of(n):
+    # play against the computer until someone wins best of n games
+    # to win, you must win ceil(n/2) games (ie 2/3, 3/5, 4/7)
+    player_wins = 0
+    computer_wins = 0
+    wins_necessary = math.ceil(n/2)
+    while player_wins < wins_necessary and computer_wins < wins_necessary:
+        result, player, computer = play()
+        # tie
+        if result == 0:
+            print('It is a tie. You and the computer have both chosen {}. \n'.format(player))
+        # you win
+        elif result == 1:
+            player_wins += 1
+            print('You chose {} and the computer chose {}. You won!\n'.format(player, computer))
+        else:
+            computer_wins += 1
+            print('You chose {} and the computer chose {}. You lost :(\n'.format(player, computer))
+        # print('\n')
+    
+    if player_wins > computer_wins:
+        print("You have won the best of {} games! What a champ!".format(n))
+    else:
+        print("Unfortunately, the computer has won the best of {} games. Better luck next time.".format(n))
 
-
-
-
-
-print(play())
+    
+play_best_of(6)
