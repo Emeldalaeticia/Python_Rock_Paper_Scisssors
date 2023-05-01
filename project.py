@@ -13,7 +13,7 @@ def play():
     
     # r > s, s > p, p > r
     if is_win(player, computer):
-        return (1, player, computer)
+        return (1, player, computer) 
     
 
     return (-1, player, computer)
@@ -39,16 +39,16 @@ def play_best_of(n):
         # you win
         elif result == 1:
             player_wins += 1
-            print('You chose {} and the computer chose {}. You won!\n'.format(player, computer))
+            print('You chose {} and the computer chose {}. YOU WON!\n'.format(player, computer))
         else:
             computer_wins += 1
-            print('You chose {} and the computer chose {}. You lost :(\n'.format(player, computer))
+            print('You chose {} and the computer chose {}. YOU LOST. \n'.format(player, computer))
         # print('\n')
     
     if player_wins > computer_wins:
-        print("You have won the best of {} games! What a champ!".format(n))
+        print("You have won the best of {} games! What a CHAMP!".format(n))
     else:
-        print("Unfortunately, the computer has won the best of {} games. Better luck next time.".format(n))
+        print("Unfortunately, the computer has won the best of {} games. BETTER LUCK NEXT TIME.".format(n))
 
     
-play_best_of(6)
+play_best_of(3)
